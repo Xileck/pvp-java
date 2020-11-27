@@ -1,21 +1,62 @@
 package com.cfemex.lv.se.apps.pvp;
 
+
+import java.util.Date;
+import java.util.List;
+
 public class ActividadPenetracion {
 
-    private String iDActividad = null;
-    private String ordenTrabajo = null;
-    private String ubicacionTecnica = null;
-    private String denominacionEquipo = null;
-    private String descripcionActividad = null;
-    private String claveSistema = null;
-    private String division = null;
-    private String tipoMantto = null;
-    private String grupoTrabajo = null;
-    private String area = null;
-    private String ingResponsable = null;
-    private String fechaInicio = null;
-    private String fechaFin = null;
-    private Integer duracionOriginal = null;
+    private String                     iDActividad;
+    private String                     ordenTrabajo;
+    private String                     ubicacionTecnica;
+    private String                     denominacionEquipo;
+    private String                     descripcionActividad;
+    private String                     claveSistema;
+    private String                     division;
+    private String                     tipoMantto;
+    private String                     grupoTrabajo;
+    private String                     area;
+    private String                     ingResponsable;
+    private Date                       fechaPlanInicio;
+    private Date                       fechaPlanFin;
+    private Date                       fechaRealInicio;
+    private Date                       fechaRealFin;
+    private Double                     duracionOriginal;
+    private List<ActividadPenetracion> actividadesRelacionadas;
+    private List<String>               equipos;
+
+
+    public Date getFechaRealInicio() {
+        return fechaRealInicio;
+    }
+
+    public void setFechaRealInicio(Date fechaRealInicio) {
+        this.fechaRealInicio = fechaRealInicio;
+    }
+
+    public Date getFechaRealFin() {
+        return fechaRealFin;
+    }
+
+    public void setFechaRealFin(Date fechaRealFin) {
+        this.fechaRealFin = fechaRealFin;
+    }
+
+    public List<ActividadPenetracion> getActividadesRelacionadas() {
+        return actividadesRelacionadas;
+    }
+
+    public void setActividadesRelacionadas(List<ActividadPenetracion> actividadesRelacionadas) {
+        this.actividadesRelacionadas = actividadesRelacionadas;
+    }
+
+    public List<String> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<String> equipos) {
+        this.equipos = equipos;
+    }
 
     public String getiDActividad() {
         return iDActividad;
@@ -33,13 +74,6 @@ public class ActividadPenetracion {
         this.ordenTrabajo = ordenTrabajo;
     }
 
-    public String getUbicacionTecnica() {
-        return ubicacionTecnica;
-    }
-
-    public void setUbicacionTecnica(String ubicacionTecnica) {
-        this.ubicacionTecnica = ubicacionTecnica;
-    }
 
     public String getDenominacionEquipo() {
         return denominacionEquipo;
@@ -105,27 +139,58 @@ public class ActividadPenetracion {
         this.ingResponsable = ingResponsable;
     }
 
-    public String getFechaInicio() {
-        return fechaInicio;
+    public Date getFechaPlanInicio() {
+        return fechaPlanInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFechaPlanInicio(Date fechaPlanInicio) {
+        this.fechaPlanInicio = fechaPlanInicio;
     }
 
-    public String getFechaFin() {
-        return fechaFin;
+    public Date getFechaPlanFin() {
+        return fechaPlanFin;
     }
 
-    public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
+    public void setFechaPlanFin(Date fechaPlanFin) {
+        this.fechaPlanFin = fechaPlanFin;
     }
 
-    public Integer getDuracionOriginal() {
+    public Double getDuracionOriginal() {
         return duracionOriginal;
     }
 
-    public void setDuracionOriginal(Integer duracionOriginal) {
+    public void setDuracionOriginal(Double duracionOriginal) {
         this.duracionOriginal = duracionOriginal;
+    }
+
+    public String getUbicacionTecnica() {
+        return ubicacionTecnica;
+    }
+
+    public void setUbicacionTecnica(String ubicacionTecnica) {
+        this.ubicacionTecnica = ubicacionTecnica;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ActividadPenetracion)) return false;
+        ActividadPenetracion that = (ActividadPenetracion) o;
+        if (getUbicacionTecnica() == null || that.getUbicacionTecnica() == null)
+            return false;
+        return getUbicacionTecnica().trim().equals(that.getUbicacionTecnica().trim());
+    }
+
+    @Override
+    public int hashCode() {
+        return getUbicacionTecnica().hashCode();
+    }
+
+
+    @Override
+    public String toString() {
+        return "ActividadPenetracion{" +
+                "ubicacionTecnica='" + ubicacionTecnica + '\'' +
+                '}';
     }
 }

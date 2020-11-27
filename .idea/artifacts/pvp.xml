@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="pvp">
-    <output-path>C:/Tomcat/webapps/weborb/WEB-INF/lib</output-path>
+  <artifact type="jar" build-on-make="true" name="pvp">
+    <output-path>$PROJECT_DIR$/../../../Tomcat/webapps/weborb/WEB-INF/lib</output-path>
     <root id="archive" name="pvp.jar">
       <element id="module-output" name="pvp" />
     </root>

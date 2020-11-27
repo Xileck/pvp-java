@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Tomcat lib" level="application" />
-    <orderEntry type="library" name="Weborb lib" level="application" />
+    <orderEntry type="library" name="tomcat/lib" level="application" />
+    <orderEntry type="library" name="weborb/WEB-INF/lib" level="application" />
   </component>
 </module>
