@@ -48,7 +48,7 @@ public class ActividadPenetracionDAO {
             qry.append("SELECT trim(a.cveactiv), " +
                     "       trim(a.numorden), " +
                     "       trim(a.tag)  as ubicacion, " +
-                    "       '  '   AS denom_equipo, " +
+                    "       trim(eq.denequipo)  AS denom_equipo, " +
                     "       trim(a.descactiv), " +
                     "       trim(a.sist) AS sistema, " +
                     "       trim(a.div)  AS division, " +
@@ -59,9 +59,15 @@ public class ActividadPenetracionDAO {
                     "       a.fechapfin, " +
                     "       a.fecharini, " +
                     "       a.fecharfin, " +
-                    "       (a.fechapfin -  a.fechapini) as dur_original  " +
-                    "FROM admgcn.r3activ a " +
+                    "       a.porcentaje,"+
+                    "       (a.fechapfin -  a.fechapini) as dur_original," +
+                    "       tag.cvecomp," +
+                    "       tag.consectag " +
+                    " FROM admgcn.r3activ a " +
                     "         LEFT JOIN admgcn.planegpotrab gpo ON gpo.gpotrabajo = a.cvegpot " +
+                    "         LEFT JOIN admgcn.r3orden o ON o.numorden = a.numorden " +
+                    "         LEFT JOIN admgcn.r3equipo eq ON eq.equipo = o.equipo " +
+                    "         LEFT JOIN admgcn.r3tags tag ON tag.ubicacion = a.tag " +
                     filtro +
                     " ORDER BY a.tag, a.fechapini, a.numorden, a.cveactiv;");
 
@@ -73,20 +79,25 @@ public class ActividadPenetracionDAO {
                 ap.setiDActividad(rs.getString(1));
                 ap.setOrdenTrabajo(rs.getString(2));
                 ap.setUbicacionTecnica(rs.getString(3));
-                ap.setDenominacionEquipo(rs.getString(4));
+                ap.setDenominacionEquipo(rs.getString("denom_equipo"));
                 ap.setDescripcionActividad(rs.getString(5));
                 ap.setClaveSistema(rs.getString(6));
                 ap.setDivision(rs.getString(7));
                 ap.setGrupoTrabajo(rs.getString(8));
                 ap.setArea(rs.getString(9));
                 ap.setIngResponsable(rs.getString(10));
-                ap.setFechaPlanInicio(rs.getDate(11) != null ? rs.getDate(11) : null);
-                ap.setFechaPlanFin(rs.getDate(12) != null ? rs.getDate(12) : null);
-                ap.setFechaRealInicio(rs.getDate(13) != null ? rs.getDate(13) : null);
-                ap.setFechaPlanFin(rs.getDate(14) != null ? rs.getDate(14) : null);
-                String duracionOriginal = rs.getString("dur_original");
+                ap.setFechaPlanInicio(rs.getDate("fechapini"));
+                ap.setFechaPlanFin(rs.getDate("fechapfin"));
+                ap.setFechaRealInicio(rs.getDate("fecharini") );
+                ap.setFechaRealFin(rs.getDate("fecharfin") );
+                ap.setPorcentajeAvance(rs.getDouble("porcentaje"));
 
+                ap.setComponenteTag(rs.getString("cvecomp") );
+                ap.setComponenteTag(rs.getString("consectag"));
+
+                String duracionOriginal = rs.getString("dur_original");
                 ap.setDuracionOriginal(obtenerDuracionOriginal(duracionOriginal));
+
                 lista.add(ap);
             }
         } catch (Exception e) {
@@ -142,6 +153,32 @@ public class ActividadPenetracionDAO {
             q1.desconectarBD();
         }
         return lista;
+
+    }
+
+
+    public List<String> obtenerDenominacionEquipos(String ubicacion){
+        Informix q1 = new Informix("Cavam", "Informix/Cavam");
+        List<String> lista = new ArrayList<String>();
+        try {
+
+            String qry = "SELECT TRIM(denequipo) " +
+                    "FROM r3eqinst e " +
+                    "         LEFT JOIN r3equipo a ON a.equipo = e.equipo " +
+                    "WHERE e.ubicacion = '"+ubicacion+"' " +
+                    "  AND fecret = '31/12/9999'; ";
+            q1.setQry(qry);
+            ResultSet rs = q1.getRegisters();
+            while (rs.next()) {
+              lista.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            throw new DAOException(e);
+        } finally {
+            q1.desconectarBD();
+        }
+        return lista;
+
 
     }
 

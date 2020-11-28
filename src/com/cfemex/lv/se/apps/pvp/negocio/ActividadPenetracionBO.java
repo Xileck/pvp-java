@@ -32,8 +32,11 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
 
     public List<ActividadPenetracion> seleccionarActividadPenetracionCondicion(List<String> condiciones) {
         List<RelacionPenetValvulas> listaRelaciones = ActividadPenetracionDAO.getInstance().obtenerRelaciones();
-        List<ActividadPenetracion> listaActPenetraciones = obtenerActividadesPenetracion();
-        List<ActividadPenetracion> listaActRelacionadas = obtenerActividadesRelacionadas(listaActPenetraciones);
+        List<ActividadPenetracion> listaActPenetraciones = obtenerActividadesPenetracion(condiciones);
+        List<ActividadPenetracion> listaActRelacionadas = obtenerActividadesRelacionadas(condiciones, listaActPenetraciones);
+
+
+
         List<ActividadPenetracion> listaAux = new ArrayList<ActividadPenetracion>();
 
         for (ActividadPenetracion actPen : listaActPenetraciones) {
@@ -73,7 +76,7 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
         return padre;
     }
 
-    public List<ActividadPenetracion> obtenerActividadesPenetracion() {
+    public List<ActividadPenetracion> obtenerActividadesPenetracion(List<String> condiciones) {
         List<Recarga> recargas = RecargaDAO.getInstance().datosRecarga();
 
         if (recargas == null || recargas.size() == 0)
@@ -81,7 +84,9 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
 
         Recarga recarga = recargas.get(0);
 
-        List<String> condiciones = new ArrayList<String>();
+        if (condiciones == null)
+            condiciones = new ArrayList<String>();
+
         condiciones.add("(a.tag LIKE ('%-X-%') OR a.tag LIKE ('%-PENET-%'))");
         condiciones.add("a.unsist = " + recarga.getUnidadRecarga());
         condiciones.add("fechapini >=  to_date('" + recarga.getFechaProgramadaInicio() + "', '%Y-%m-%d')");
@@ -90,7 +95,7 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
         return ActividadPenetracionDAO.getInstance().seleccionarActividadPenetracion(condiciones);
     }
 
-    public List<ActividadPenetracion> obtenerActividadesRelacionadas(List<ActividadPenetracion> ubicacionesRelacionadas) {
+    public List<ActividadPenetracion> obtenerActividadesRelacionadas(List<String> condiciones, List<ActividadPenetracion> ubicacionesRelacionadas) {
         List<Recarga> recargas = RecargaDAO.getInstance().datosRecarga();
 
         if (recargas == null || recargas.size() == 0)
@@ -98,7 +103,8 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
 
         Recarga recarga = recargas.get(0);
 
-        List<String> condiciones = new ArrayList<String>();
+        if (condiciones == null)
+            condiciones = new ArrayList<String>();
 
         condiciones.add("a.unsist = " + recarga.getUnidadRecarga());
         condiciones.add("fechapini >=  to_date('" + recarga.getFechaProgramadaInicio() + "', '%Y-%m-%d')");
@@ -107,11 +113,11 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
 
         String ubicaciones = "";
         for (ActividadPenetracion act : ubicacionesRelacionadas) {
-            ubicaciones+="'"+act.getUbicacionTecnica()+"',";
+            ubicaciones += "'" + act.getUbicacionTecnica() + "',";
         }
-       ubicaciones =  ubicaciones.substring(0,ubicaciones.length()-1);
+        ubicaciones = ubicaciones.substring(0, ubicaciones.length() - 1);
 
-        condiciones.add("a.tag in (select ubicacion from pvp_ubicpenet where penetracion in("+ubicaciones+"))");
+        condiciones.add("a.tag in (select ubicacion from pvp_ubicpenet where penetracion in(" + ubicaciones + "))");
         return ActividadPenetracionDAO.getInstance().seleccionarActividadPenetracion(condiciones);
     }
 

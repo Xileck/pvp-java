@@ -24,38 +24,16 @@ public class ActividadPenetracion {
     private Double                     duracionOriginal;
     private List<ActividadPenetracion> actividadesRelacionadas;
     private List<String>               equipos;
+    private Double                     porcentajeAvance;
+    private String                     componenteTag;
+    private String                     consecutivoTag;
 
-
-    public Date getFechaRealInicio() {
-        return fechaRealInicio;
+    public String getConsecutivoTag() {
+        return consecutivoTag;
     }
 
-    public void setFechaRealInicio(Date fechaRealInicio) {
-        this.fechaRealInicio = fechaRealInicio;
-    }
-
-    public Date getFechaRealFin() {
-        return fechaRealFin;
-    }
-
-    public void setFechaRealFin(Date fechaRealFin) {
-        this.fechaRealFin = fechaRealFin;
-    }
-
-    public List<ActividadPenetracion> getActividadesRelacionadas() {
-        return actividadesRelacionadas;
-    }
-
-    public void setActividadesRelacionadas(List<ActividadPenetracion> actividadesRelacionadas) {
-        this.actividadesRelacionadas = actividadesRelacionadas;
-    }
-
-    public List<String> getEquipos() {
-        return equipos;
-    }
-
-    public void setEquipos(List<String> equipos) {
-        this.equipos = equipos;
+    public void setConsecutivoTag(String consecutivoTag) {
+        this.consecutivoTag = consecutivoTag;
     }
 
     public String getiDActividad() {
@@ -74,6 +52,13 @@ public class ActividadPenetracion {
         this.ordenTrabajo = ordenTrabajo;
     }
 
+    public String getUbicacionTecnica() {
+        return ubicacionTecnica;
+    }
+
+    public void setUbicacionTecnica(String ubicacionTecnica) {
+        this.ubicacionTecnica = ubicacionTecnica;
+    }
 
     public String getDenominacionEquipo() {
         return denominacionEquipo;
@@ -155,6 +140,22 @@ public class ActividadPenetracion {
         this.fechaPlanFin = fechaPlanFin;
     }
 
+    public Date getFechaRealInicio() {
+        return fechaRealInicio;
+    }
+
+    public void setFechaRealInicio(Date fechaRealInicio) {
+        this.fechaRealInicio = fechaRealInicio;
+    }
+
+    public Date getFechaRealFin() {
+        return fechaRealFin;
+    }
+
+    public void setFechaRealFin(Date fechaRealFin) {
+        this.fechaRealFin = fechaRealFin;
+    }
+
     public Double getDuracionOriginal() {
         return duracionOriginal;
     }
@@ -163,12 +164,36 @@ public class ActividadPenetracion {
         this.duracionOriginal = duracionOriginal;
     }
 
-    public String getUbicacionTecnica() {
-        return ubicacionTecnica;
+    public List<ActividadPenetracion> getActividadesRelacionadas() {
+        return actividadesRelacionadas;
     }
 
-    public void setUbicacionTecnica(String ubicacionTecnica) {
-        this.ubicacionTecnica = ubicacionTecnica;
+    public void setActividadesRelacionadas(List<ActividadPenetracion> actividadesRelacionadas) {
+        this.actividadesRelacionadas = actividadesRelacionadas;
+    }
+
+    public List<String> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(List<String> equipos) {
+        this.equipos = equipos;
+    }
+
+    public Double getPorcentajeAvance() {
+        return porcentajeAvance;
+    }
+
+    public void setPorcentajeAvance(Double porcentajeAvance) {
+        this.porcentajeAvance = porcentajeAvance;
+    }
+
+    public String getComponenteTag() {
+        return componenteTag;
+    }
+
+    public void setComponenteTag(String componenteTag) {
+        this.componenteTag = componenteTag;
     }
 
     @Override
