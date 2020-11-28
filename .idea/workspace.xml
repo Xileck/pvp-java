@@ -8,8 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7edf2cb3-440a-4f7e-9d3f-3ca915f10bed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/ActividadPenetracion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/ActividadPenetracion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -235,7 +233,7 @@
       <recent name="com.cfemex.lv.se.apps.pvp.negocio" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ActividadPenetracionBO">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 7.0.21">
     <configuration name="ActividadPenetracionBO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.cfemex.lv.se.apps.pvp.negocio.ActividadPenetracionBO" />
       <module name="pvp" />
@@ -262,15 +260,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -421,7 +417,8 @@
       <workItem from="1606431289207" duration="7719000" />
       <workItem from="1606439227441" duration="1401000" />
       <workItem from="1606485937250" duration="12632000" />
-      <workItem from="1606581251755" duration="6492000" />
+      <workItem from="1606581251755" duration="8036000" />
+      <workItem from="1606601987486" duration="3287000" />
     </task>
     <task id="LOCAL-00001" summary="Armar actividadesPenetracion y asignarle actividades relacionadas a la ubicacion de la penetracion">
       <created>1606507750459</created>
@@ -430,7 +427,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606507750459</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Armar actividadesPenetracion y asignarle actividades relacionadas a la ubicacion de la penetracion">
+      <created>1606600339153</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606600339153</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -483,29 +487,33 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <condition expression="that.equals(&quot;2-B13-PENET-X-2&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/ActividadPenetracion.java</url>
           <line>205</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java</url>
+          <line>123</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java</url>
           <line>74</line>
-          <option name="timeStamp" value="49" />
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="valvulaPadre != &quot;2-B22-PENET-X-22&quot;" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java</url>
+          <line>129</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="listaAux.indexOf(aux)" />
+      </configuration>
       <configuration name="Application">
         <watch expression="100/16" language="JAVA" />
         <watch expression="Double.valueOf(dias + ((horas * 100) / 24) / 100)" />
