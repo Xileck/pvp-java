@@ -31,16 +31,21 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
 
 
     public List<ActividadPenetracion> seleccionarActividadPenetracionCondicion(List<String> condiciones) {
+
         List<Recarga> recargas = RecargaDAO.getInstance().datosRecarga();
 
         if (recargas == null || recargas.size() == 0)
             return null;
+
+        if(condiciones == null )
+            condiciones = new ArrayList<String>();
 
         Recarga recarga = recargas.get(0);
         condiciones.add("a.unsist = " + recarga.getUnidadRecarga());
         condiciones.add("fechapini >=  to_date('" + recarga.getFechaProgramadaInicio() + "', '%Y-%m-%d')");
         condiciones.add("fechapfin <=  to_date('" + recarga.getFechaProgramadaFin() + "', '%Y-%m-%d')");
         condiciones.add("a.clasif = 'R' ");
+
         // Regresa Las relaciones de penetraciones a otros sistemas
         List<RelacionPenetValvulas> listaRelaciones = ActividadPenetracionDAO.getInstance().obtenerRelaciones();
 
@@ -53,6 +58,10 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
         // Si no hubo actividades de penetracion que cumplieran con los filtros, buscamos aquellas que tienen hijos que si cumplieron con  los filtros
         if (listaActPenetraciones == null || listaActPenetraciones.size() == 0)
             listaActPenetraciones = buscarPadresDeRelacionadas(listaActRelacionadas);
+
+        if (listaActPenetraciones == null || listaActPenetraciones.size() == 0)
+            return new ArrayList<ActividadPenetracion>();
+
 
         // Lista Auxiliar para ir juntando las actividades
         List<ActividadPenetracion> listaAux = new ArrayList<ActividadPenetracion>();
@@ -84,9 +93,7 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
             if (padre.getActividadesRelacionadas() == null)
                 padre.setActividadesRelacionadas(new ArrayList<ActividadPenetracion>());
             padre.getActividadesRelacionadas().add(actRel);
-
         }
-
 
         return listaAux;
 
@@ -119,6 +126,9 @@ public class ActividadPenetracionBO implements IActividadPenetracionBO {
             ubicaciones = ubicaciones.substring(0, ubicaciones.length() - 1);
             filtros.add("a.tag in (select penetracion from pvp_ubicpenet where ubicacion in(" + ubicaciones + "))");
         }
+        else
+            return new ArrayList<ActividadPenetracion>();
+
 
 
         return ActividadPenetracionDAO.getInstance().seleccionarActividadPenetracion(filtros);

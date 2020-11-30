@@ -8,6 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7edf2cb3-440a-4f7e-9d3f-3ca915f10bed" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/ActividadPenetracion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/ActividadPenetracion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -233,7 +235,7 @@
       <recent name="com.cfemex.lv.se.apps.pvp.negocio" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 7.0.21">
+  <component name="RunManager" selected="Application.ActividadPenetracionBO">
     <configuration name="ActividadPenetracionBO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.cfemex.lv.se.apps.pvp.negocio.ActividadPenetracionBO" />
       <module name="pvp" />
@@ -256,17 +258,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -418,7 +409,9 @@
       <workItem from="1606439227441" duration="1401000" />
       <workItem from="1606485937250" duration="12632000" />
       <workItem from="1606581251755" duration="8036000" />
-      <workItem from="1606601987486" duration="3287000" />
+      <workItem from="1606601987486" duration="5202000" />
+      <workItem from="1606611778424" duration="728000" />
+      <workItem from="1606747638661" duration="5987000" />
     </task>
     <task id="LOCAL-00001" summary="Armar actividadesPenetracion y asignarle actividades relacionadas a la ubicacion de la penetracion">
       <created>1606507750459</created>
@@ -434,7 +427,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606600339153</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Filtra de manera correcta, tomando en cuenta las relaciones">
+      <created>1606605388356</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606605388356</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -481,7 +481,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Armar actividadesPenetracion y asignarle actividades relacionadas a la ubicacion de la penetracion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Armar actividadesPenetracion y asignarle actividades relacionadas a la ubicacion de la penetracion" />
+    <MESSAGE value="Filtra de manera correcta, tomando en cuenta las relaciones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Filtra de manera correcta, tomando en cuenta las relaciones" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -489,30 +490,31 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="that.equals(&quot;2-B13-PENET-X-2&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/ActividadPenetracion.java</url>
-          <line>205</line>
+          <line>214</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java</url>
-          <line>123</line>
+          <line>135</line>
           <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="valvulaPadre != &quot;2-B22-PENET-X-22&quot;" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/negocio/ActividadPenetracionBO.java</url>
-          <line>129</line>
+          <line>141</line>
           <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/cfemex/lv/se/apps/pvp/DAO/ActividadPenetracionDAO.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
         <watch expression="listaAux.indexOf(aux)" />
+        <watch expression="filtro" />
       </configuration>
       <configuration name="Application">
         <watch expression="100/16" language="JAVA" />

@@ -25,16 +25,9 @@ public class ActividadPenetracion {
     private List<ActividadPenetracion> actividadesRelacionadas;
     private List<String>               equipos;
     private Double                     porcentajeAvance;
-    private String                     componenteTag;
-    private String                     consecutivoTag;
-
-    public String getConsecutivoTag() {
-        return consecutivoTag;
-    }
-
-    public void setConsecutivoTag(String consecutivoTag) {
-        this.consecutivoTag = consecutivoTag;
-    }
+    private String                     cuarto;
+    private String                     edificio;
+    private String                     nivel; // Tambien se le llama Elevación
 
     public String getiDActividad() {
         return iDActividad;
@@ -188,12 +181,28 @@ public class ActividadPenetracion {
         this.porcentajeAvance = porcentajeAvance;
     }
 
-    public String getComponenteTag() {
-        return componenteTag;
+    public String getCuarto() {
+        return cuarto;
     }
 
-    public void setComponenteTag(String componenteTag) {
-        this.componenteTag = componenteTag;
+    public void setCuarto(String cuarto) {
+        this.cuarto = cuarto;
+    }
+
+    public String getEdificio() {
+        return edificio;
+    }
+
+    public void setEdificio(String edificio) {
+        this.edificio = edificio;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
     }
 
     @Override

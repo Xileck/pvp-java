@@ -45,29 +45,32 @@ public class ActividadPenetracionDAO {
                 filtro.delete(filtro.lastIndexOf("AND", filtro.length()), filtro.length());
             }
             StringBuilder qry = new StringBuilder();
-            qry.append("SELECT trim(a.cveactiv), " +
-                    "       trim(a.numorden), " +
-                    "       trim(a.tag)  as ubicacion, " +
-                    "       trim(eq.denequipo)  AS denom_equipo, " +
-                    "       trim(a.descactiv), " +
-                    "       trim(a.sist) AS sistema, " +
-                    "       trim(a.div)  AS division, " +
-                    "       trim(gpo.descripcion), " +
-                    "       trim(a.area), " +
-                    "       trim(a.cveingresp), " +
+            qry.append("SELECT TRIM(a.cveactiv) as id_actividad, " +
+                    "       TRIM(a.numorden) as numorden , " +
+                    "       TRIM(a.tag)  as ubicacion, " +
+                    "       TRIM(eq.denequipo)  AS denom_equipo, " +
+                    "       TRIM(a.descactiv) as descactiv, " +
+                    "       TRIM(a.sist) AS sistema, " +
+                    "       TRIM(a.div)  AS division, " +
+                    "       TRIM(gpo.descripcion) as desc_grupo, " +
+                    "       TRIM(a.area) as area, " +
+                    "       TRIM(a.cveingresp) as ing_responsable, " +
                     "       a.fechapini, " +
                     "       a.fechapfin, " +
                     "       a.fecharini, " +
                     "       a.fecharfin, " +
-                    "       a.porcentaje,"+
-                    "       (a.fechapfin -  a.fechapini) as dur_original," +
-                    "       tag.cvecomp," +
-                    "       tag.consectag " +
+                    "       a.porcentaje, " +
+                    "       (a.fechapfin -  a.fechapini) as dur_original, " +
+                    // Si la OT tiene ubicacion tomamos el cuarto, nivel y edificio de la ot, si no tomamos los valores de la Actividad
+                    "       CASE WHEN tag_ot.ubicacion IS NOT NULL THEN tag_ot.cuarto ELSE tag_activ.cuarto END AS cuarto, " +
+                    "       CASE WHEN tag_ot.ubicacion IS NOT NULL THEN tag_ot.cveedif ELSE tag_activ.cveedif END AS edificio, " +
+                    "       CASE WHEN tag_ot.ubicacion IS NOT NULL THEN tag_ot.cveniv ELSE tag_activ.cveniv END AS nivel " +
                     " FROM admgcn.r3activ a " +
-                    "         LEFT JOIN admgcn.planegpotrab gpo ON gpo.gpotrabajo = a.cvegpot " +
-                    "         LEFT JOIN admgcn.r3orden o ON o.numorden = a.numorden " +
-                    "         LEFT JOIN admgcn.r3equipo eq ON eq.equipo = o.equipo " +
-                    "         LEFT JOIN admgcn.r3tags tag ON tag.ubicacion = a.tag " +
+                    "       LEFT JOIN admgcn.planegpotrab gpo ON gpo.gpotrabajo = a.cvegpot " +
+                    "       LEFT JOIN admgcn.r3orden o ON o.numorden = a.numorden " +
+                    "       LEFT JOIN admgcn.r3equipo eq ON eq.equipo = o.equipo " +
+                    "       LEFT JOIN admgcn.r3tags tag_activ ON tag_activ.ubicacion = a.tag " +
+                    "       LEFT JOIN admgcn.r3tags tag_ot ON tag_ot.ubicacion = o.ubicacion" +
                     filtro +
                     " ORDER BY a.tag, a.fechapini, a.numorden, a.cveactiv;");
 
@@ -76,24 +79,24 @@ public class ActividadPenetracionDAO {
             ResultSet rs = q1.getRegisters();
             while (rs.next()) {
                 ap = new ActividadPenetracion();
-                ap.setiDActividad(rs.getString(1));
-                ap.setOrdenTrabajo(rs.getString(2));
-                ap.setUbicacionTecnica(rs.getString(3));
+                ap.setiDActividad(rs.getString("id_actividad"));
+                ap.setOrdenTrabajo(rs.getString("numorden"));
+                ap.setUbicacionTecnica(rs.getString("ubicacion"));
                 ap.setDenominacionEquipo(rs.getString("denom_equipo"));
-                ap.setDescripcionActividad(rs.getString(5));
-                ap.setClaveSistema(rs.getString(6));
-                ap.setDivision(rs.getString(7));
-                ap.setGrupoTrabajo(rs.getString(8));
-                ap.setArea(rs.getString(9));
-                ap.setIngResponsable(rs.getString(10));
+                ap.setDescripcionActividad(rs.getString("descactiv"));
+                ap.setClaveSistema(rs.getString("sistema"));
+                ap.setDivision(rs.getString("division"));
+                ap.setGrupoTrabajo(rs.getString("desc_grupo"));
+                ap.setArea(rs.getString("area"));
+                ap.setIngResponsable(rs.getString("ing_responsable"));
                 ap.setFechaPlanInicio(rs.getDate("fechapini"));
                 ap.setFechaPlanFin(rs.getDate("fechapfin"));
-                ap.setFechaRealInicio(rs.getDate("fecharini") );
-                ap.setFechaRealFin(rs.getDate("fecharfin") );
+                ap.setFechaRealInicio(rs.getDate("fecharini"));
+                ap.setFechaRealFin(rs.getDate("fecharfin"));
                 ap.setPorcentajeAvance(rs.getDouble("porcentaje"));
-
-                ap.setComponenteTag(rs.getString("cvecomp") );
-                ap.setComponenteTag(rs.getString("consectag"));
+                ap.setCuarto(rs.getString("cuarto"));
+                ap.setEdificio(rs.getString("edificio"));
+                ap.setNivel(rs.getString("nivel"));
 
                 String duracionOriginal = rs.getString("dur_original");
                 ap.setDuracionOriginal(obtenerDuracionOriginal(duracionOriginal));
@@ -101,7 +104,7 @@ public class ActividadPenetracionDAO {
                 lista.add(ap);
             }
         } catch (Exception e) {
-            Utilerias.grabarArchivo(Utilerias.getRutaEjecucion() + "bitacora.err", "PVP - " + e.getMessage(), true);
+            Utilerias.grabarArchivo(Utilerias.getRutaEjecucion() + "bitacora.err", "PVP - " + e.toString(), true);
             throw new DAOException(e);
         } finally {
             q1.desconectarBD();
@@ -157,7 +160,7 @@ public class ActividadPenetracionDAO {
     }
 
 
-    public List<String> obtenerDenominacionEquipos(String ubicacion){
+    public List<String> obtenerDenominacionEquipos(String ubicacion) {
         Informix q1 = new Informix("Cavam", "Informix/Cavam");
         List<String> lista = new ArrayList<String>();
         try {
@@ -165,12 +168,12 @@ public class ActividadPenetracionDAO {
             String qry = "SELECT TRIM(denequipo) " +
                     "FROM r3eqinst e " +
                     "         LEFT JOIN r3equipo a ON a.equipo = e.equipo " +
-                    "WHERE e.ubicacion = '"+ubicacion+"' " +
+                    "WHERE e.ubicacion = '" + ubicacion + "' " +
                     "  AND fecret = '31/12/9999'; ";
             q1.setQry(qry);
             ResultSet rs = q1.getRegisters();
             while (rs.next()) {
-              lista.add(rs.getString(1));
+                lista.add(rs.getString(1));
             }
         } catch (Exception e) {
             throw new DAOException(e);
