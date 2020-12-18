@@ -1,6 +1,6 @@
-package com.cfemex.lv.se.apps.pvp.DAO;
+package com.cfemex.lv.se.apps.pvp.DAO; 
 
-import com.cfemex.lv.DAOException;
+import com.cfemex.lv.DAOException;   
 import com.cfemex.lv.libs.Utilerias;
 import com.cfemex.lv.libs.informix.Informix;
 import com.cfemex.lv.se.apps.pvp.ActividadPenetracion;
